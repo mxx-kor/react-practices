@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./App.css";
 
 function App() {
   const [toDo, setToDo] = useState("");
@@ -28,3 +29,6 @@ function App() {
 }
 
 export default App;
+
+//각 li태그에 체크박스가 체크되어있으면 밑줄
+// 로컬 스토리지 가져오기.
