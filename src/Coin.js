@@ -7,14 +7,14 @@ function Coin_tracker() {
         fetch("https://api.coinpaprika.com/v1/tickers")
         .then((response) => response.json())
         .then((json) => {
-            setCoins(json);
+            setCoins(json.slice(0, 100));
             setLoading(false);
         });
     }, [])
     return <div>
         <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
         {loading ? <strong>Loading...</strong> : <select>
-            {coins.map((coin) => <option>{coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD</option>)}
+            {coins.map((coin) => <option key={coin.rank}>{coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD</option>)}
         </select>}
     </div>
 }
