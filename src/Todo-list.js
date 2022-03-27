@@ -26,6 +26,11 @@ function ToDo_list() {
   const saveToDos = () => {
     window.localStorage.setItem(toDos.length, toDo)
   }
+  const inputChecked = (e) => {
+    const changed = document.getElementById(e.target.value) 
+    changed.style.textDecoration = "line-through"
+  }
+
   return (
     <div>
       <h1>Daily To Do ({toDos.length})</h1>
@@ -33,9 +38,9 @@ function ToDo_list() {
         <input onChange={onChange} value={toDo} type="text" placeholder="write your to do..." />
         <button>Add To Do</button>
       </form>
-      <hr />
+      {toDos ? <hr />: null}
       <ul>
-        {toDos.map((item, index) => <li key={index}><input id={index} type="checkbox"/>  {item}</li>)}
+        {toDos.map((item, index) => <li id={index} style={{textDecoration: "none"}} key={index}><input value={index} onChange={inputChecked} type="checkbox"/>  {item}</li>)}
       </ul>
     </div>
   );
