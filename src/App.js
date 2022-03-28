@@ -1,4 +1,3 @@
-import { useState } from "react";
 import Coin_tracker from "./Coin";
 import ToDo_list from "./Todo-list";
 
