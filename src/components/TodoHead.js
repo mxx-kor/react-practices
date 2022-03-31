@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useTodoState } from '../TodoContext';
 
 const TodoHeadBlock = styled.div`
   padding-top: 48px;
@@ -27,10 +28,14 @@ const TodoHeadBlock = styled.div`
 
 function TodoHead() {
     let today = new Date();
+    let week = new Array('Sun.', 'Mon.', 'Tue.', 'Wed.', 'Thu.', 'Fri.', 'Sat.')
     let year = today.getFullYear(); // 년도
     let month = today.getMonth() + 1;  // 월
     let date = today.getDate();  // 날짜
-    let day = today.getDay();  // 요일
+    let day = week[today.getDay()];  // 요일
+
+    const todos = useTodoState();
+    console.log(todos)
 
     return (
         <TodoHeadBlock>
