@@ -1,96 +1,62 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import styled from 'styled-components';
 
-function Converter({coin}) {
-  const [usd, setUSD] = useState(0);
-  const [disabled, setDisabled] = useState(false);
+const CoinWrapper = styled.div`
+    margin: 0 auto;
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-  const onChange = (event) => {
-    setUSD(event.target.value);
-  };
-  const reset = () => {
-    setUSD(0);
+    h1 {
+        margin-bottom: 10px
+        font-size: 36px;
+        color: #343a40;
+      }
+    .canBuy {
+    color: #20c997;
+    font-size: 20px;
+    margin-top: 10px;
+    font-weight: bold;
   }
-  const onClick = () => {
-    reset();
-    setDisabled((current) => !current);
-  };
+`
 
-  return (
-    <div>
-      <div>
-        <label htmlFor="USD">USD </label>
-        <input
-          id="USD"
-          value={
-            disabled ? usd * coin.quotes['USD'].price: usd
-          }
-          type="number"
-          onChange={onChange}
-          disabled={disabled}
-        />
-      </div>
-      <div>
-        <label htmlFor={coin.symbol}>{coin.symbol} </label>
-        <input
-          id={coin.symbol}
-          value={disabled ? usd : usd / coin.quotes['USD'].price}
-          type="number"
-          onChange={onChange}
-          disabled={!disabled}
-        />
-      </div>
-      <button onClick={onClick}>Convert</button>
-    </div>
-  );
-}
+function Coin_tracker() {
+    const[loading, setLoading] = useState(true);
+    const[coins, setCoins] = useState([]);
+    const[index, setIndex] = useState(0);
+    const [selected, setSelected] = useState([]);
+    const [amount, setAmount] = useState(0);
+    
+    const onSelect = (e) => {
+        setIndex(e.target.value);
+        setSelected(coins[e.target.value])
+    }
 
-function CoinConverter() {
-  const [loading, setLoading] = useState(true);
-  const [coins, setCoins] = useState([]);
-  const [index, setIndex] = useState("-1");
-  const [selected, setSelected] = useState([]);
-  useEffect(() => {
-    fetch("https://api.coinpaprika.com/v1/tickers")
-    .then((response) => response.json())
-    .then((json) => {
-      setCoins(json.slice(0, 100));
-      setLoading(false);
-    });
-  }, []);
-  const onSelect = (event) => {
-    setIndex(event.target.value);
-    if (event.target.value === "-1"){
-      setSelected([]);
-    }
-    else {
-      setSelected(coins[event.target.value]);
-    }
-  }
-  return (
-    <div>
-      <h1>The Coin Converter {loading ? "" : `(${coins.length})`}</h1>
-      {loading ? (
-        <strong>Loading...</strong>
-      ) : (
+    const onChange = (e) => setAmount(e.target.value)
+
+    useEffect(() => {
+        fetch("https://api.coinpaprika.com/v1/tickers")
+        .then((response) => response.json())
+        .then((json) => {
+            setCoins(json.slice(0, 100));
+            setSelected(json[0])
+            setLoading(false);
+        });
+    }, [])
+    return <CoinWrapper>
+        <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
+        {loading ? <strong>Loading...</strong> : <select value={index} onChange={onSelect}>
+            {coins.map((coin, idx) => <option value={idx} key={idx}>{coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD</option>)}
+        </select>}
         <div>
-          <select value={index} onChange={onSelect}>
-            <option key="-1" value="-1">Select Coin</option>
-            {coins.map((coin, idx) => (
-              <option key={idx} value={idx}>
-                {coin.name} ${coin.quotes.USD.price}
-              </option>
-            ))}
-          </select>
-          <hr />
-          {index === "-1" ?
-            ("Please Select Coin")
-            :
-            (<Converter coin={selected} />)
-          }
+            <label>USD</label>
+            <input type='number' value={amount} onChange={onChange} />
         </div>
-      )}
-    </div>
-  );
+        <div className="canBuy">{loading ? "" : `= ${selected.symbol} ${amount / selected.quotes.USD.price}개`}</div>
+    </CoinWrapper>
 }
+// 내가 가진 돈이 얼마인지 확인해서 몇개의 비트코인이나 이더리움을 가질 수 있는지.
 
-export default CoinConverter;
+export default Coin_tracker;

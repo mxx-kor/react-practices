@@ -1,5 +1,5 @@
 import React from "react";
-import CoinConverter from "./Coin";
+import Coin_tracker from "./Coin";
 import TodoTemplate from "./components/TodoTemplate";
 import { createGlobalStyle } from 'styled-components';
 import TodoHead from "./components/TodoHead";
@@ -24,7 +24,7 @@ function App() {
           <TodoCreate />
         </TodoTemplate>
       </TodoProvider>
-      <CoinConverter />
+      <Coin_tracker />
     </>
   );
 }
