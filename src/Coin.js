@@ -77,7 +77,7 @@ function CoinConverter() {
             <option key="-1" value="-1">Select Coin</option>
             {coins.map((coin, idx) => (
               <option key={idx} value={idx}>
-                {coin.name}
+                {coin.name} ${coin.quotes.USD.price}
               </option>
             ))}
           </select>
