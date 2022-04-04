@@ -57,6 +57,5 @@ function Coin_tracker() {
         <div className="canBuy">{loading ? "" : `= ${selected.symbol} ${amount / selected.quotes.USD.price}개`}</div>
     </CoinWrapper>
 }
-// 내가 가진 돈이 얼마인지 확인해서 몇개의 비트코인이나 이더리움을 가질 수 있는지.
 
 export default Coin_tracker;

@@ -6,6 +6,8 @@ import TodoHead from "./components/TodoHead";
 import TodoList from "./components/TodoList";
 import TodoCreate from "./components/TodoCreate";
 import { TodoProvider } from "./TodoContext";
+import NavBar from "./components/NavBar";
+
 
 const GlobalStyle = createGlobalStyle`
   body {
@@ -17,6 +19,7 @@ function App() {
   return (
     <>
       <TodoProvider>
+        <NavBar />
         <GlobalStyle />
         <TodoTemplate>
           <TodoHead />
