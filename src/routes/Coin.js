@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+body {
+  background: #e9ecef;
+}
+`;
 
 const CoinWrapper = styled.div`
     margin: 0 auto;
@@ -22,7 +29,7 @@ const CoinWrapper = styled.div`
   }
 `
 
-function Coin_tracker() {
+function Coin() {
     const[loading, setLoading] = useState(true);
     const[coins, setCoins] = useState([]);
     const[index, setIndex] = useState(0);
@@ -45,7 +52,9 @@ function Coin_tracker() {
             setLoading(false);
         });
     }, [])
-    return <CoinWrapper>
+    return (
+    <CoinWrapper>
+        <GlobalStyle />
         <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
         {loading ? <strong>Loading...</strong> : <select value={index} onChange={onSelect}>
             {coins.map((coin, idx) => <option value={idx} key={idx}>{coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD</option>)}
@@ -56,6 +65,7 @@ function Coin_tracker() {
         </div>
         <div className="canBuy">{loading ? "" : `= ${selected.symbol} ${amount / selected.quotes.USD.price}개`}</div>
     </CoinWrapper>
+    )
 }
 
-export default Coin_tracker;
+export default Coin;

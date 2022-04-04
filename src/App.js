@@ -1,34 +1,20 @@
 import React from "react";
-import Coin_tracker from "./Coin";
-import TodoTemplate from "./components/TodoTemplate";
-import { createGlobalStyle } from 'styled-components';
-import TodoHead from "./components/TodoHead";
-import TodoList from "./components/TodoList";
-import TodoCreate from "./components/TodoCreate";
-import { TodoProvider } from "./TodoContext";
-import NavBar from "./components/NavBar";
-
-
-const GlobalStyle = createGlobalStyle`
-  body {
-    background: #e9ecef;
-  }
-`;
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import Coin from "./routes/Coin";
+import Home from "./routes/Home";
 
 function App() {
   return (
-    <>
-      <TodoProvider>
-        <NavBar />
-        <GlobalStyle />
-        <TodoTemplate>
-          <TodoHead />
-          <TodoList />
-          <TodoCreate />
-        </TodoTemplate>
-      </TodoProvider>
-      <Coin_tracker />
-    </>
+    <Router>
+      <Switch>
+        <Route path="/coin">
+          <Coin />
+        </Route>
+        <Route path="/">
+          <Home />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
