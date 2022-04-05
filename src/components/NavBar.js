@@ -29,8 +29,15 @@ const NavBar = () => {
 
     return (
     <NavWrapper>
-        <Link to="/"><NavBtn>ToDo-List</NavBtn></Link>
-        <Link to="/coin"><NavBtn>Coin-Converter</NavBtn></Link>
+        <Link to="/">
+            <NavBtn>ToDo-List</NavBtn>
+        </Link>
+        <Link to="/coin">
+            <NavBtn>Coin-Converter</NavBtn>
+        </Link>
+        <Link to="/ge">
+            <NavBtn>Green-Effort</NavBtn>
+        </Link>
     </NavWrapper>
     )
 }

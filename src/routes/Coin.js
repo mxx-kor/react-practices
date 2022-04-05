@@ -11,14 +11,14 @@ body {
 
 const CoinWrapper = styled.div`
     margin: 0 auto;
-    margin-top: 40px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
 
     h1 {
-        margin-bottom: 10px
+        margin-top: 20px;
+        margin-bottom: 10px;
         font-size: 36px;
         color: #343a40;
       }
@@ -44,29 +44,35 @@ function Coin() {
 
     const onChange = (e) => setAmount(e.target.value)
 
-    useEffect(() => {
-        fetch("https://api.coinpaprika.com/v1/tickers")
+    const getCoinData = async () => {
+        await fetch("https://api.coinpaprika.com/v1/tickers")
         .then((response) => response.json())
         .then((json) => {
             setCoins(json.slice(0, 100));
             setSelected(json[0])
             setLoading(false);
         });
+    }
+
+    useEffect(() => {
+        getCoinData()
     }, [])
     return (
-    <CoinWrapper>
-        <NavBar />
-        <GlobalStyle />
-        <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
-        {loading ? <strong>Loading...</strong> : <select value={index} onChange={onSelect}>
-            {coins.map((coin, idx) => <option value={idx} key={idx}>{coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD</option>)}
-        </select>}
-        <div>
-            <label>USD</label>
-            <input type='number' value={amount} onChange={onChange} />
-        </div>
-        <div className="canBuy">{loading ? "" : `= ${selected.symbol} ${amount / selected.quotes.USD.price}개`}</div>
-    </CoinWrapper>
+        <>
+            <NavBar />
+            <CoinWrapper>
+                <GlobalStyle />
+                <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
+                {loading ? <strong>Loading...</strong> : <select value={index} onChange={onSelect}>
+                    {coins.map((coin, idx) => <option value={idx} key={idx}>{coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD</option>)}
+                </select>}
+                <div>
+                    <label>USD</label>
+                    <input type='number' value={amount} onChange={onChange} />
+                </div>
+                <div className="canBuy">{loading ? "" : `= ${selected.symbol} ${amount / selected.quotes.USD.price}개`}</div>
+            </CoinWrapper>
+        </>
     )
 }
 
