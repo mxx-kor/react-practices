@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import styled from 'styled-components';
 
 const NavWrapper = styled.div`
@@ -24,18 +25,12 @@ const NavBtn = styled.button`
     }
 `
 
-const NavButton = ({ content }) => {
-    return <NavBtn>
-        {content}
-    </NavBtn>
-}
-
 const NavBar = () => {
 
     return (
     <NavWrapper>
-        <NavButton content="ToDo-List" />
-        <NavButton content="Coin-Converter" />
+        <Link to="/"><NavBtn>ToDo-List</NavBtn></Link>
+        <Link to="/coin"><NavBtn>Coin-Converter</NavBtn></Link>
     </NavWrapper>
     )
 }

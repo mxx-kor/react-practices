@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
+import NavBar from "../components/NavBar";
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -54,6 +55,7 @@ function Coin() {
     }, [])
     return (
     <CoinWrapper>
+        <NavBar />
         <GlobalStyle />
         <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
         {loading ? <strong>Loading...</strong> : <select value={index} onChange={onSelect}>
