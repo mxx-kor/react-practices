@@ -33,6 +33,7 @@ const CoinWrapper = styled.div`
 function Coin() {
     const[loading, setLoading] = useState(true);
     const[coins, setCoins] = useState([]);
+    const[currency, setCurrency] = useState([]);
     const[index, setIndex] = useState(0);
     const [selected, setSelected] = useState([]);
     const [amount, setAmount] = useState(0);
@@ -44,18 +45,27 @@ function Coin() {
 
     const onChange = (e) => setAmount(e.target.value)
 
-    const getCoinData = async () => {
-        await fetch("https://api.coinpaprika.com/v1/tickers")
+    const getCoinData = () => {
+        fetch("https://api.coinpaprika.com/v1/tickers")
         .then((response) => response.json())
         .then((json) => {
             setCoins(json.slice(0, 100));
-            setSelected(json[0])
+            setSelected(json[0]);
             setLoading(false);
+        })
+    }
+
+    const get_Currency_Data = () =>{
+        fetch("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD")
+        .then((respose) => respose.json())
+        .then((json) => {
+            setCurrency(json[0].cashBuyingPrice);
         });
     }
 
     useEffect(() => {
-        getCoinData()
+        getCoinData();
+        get_Currency_Data();
     }, [])
     return (
         <>
@@ -64,11 +74,15 @@ function Coin() {
                 <GlobalStyle />
                 <h1>The Coins! {loading ? "" : `(${coins.length})`}</h1>
                 {loading ? <strong>Loading...</strong> : <select value={index} onChange={onSelect}>
-                    {coins.map((coin, idx) => <option value={idx} key={idx}>{coin.name} ({coin.symbol}): ${coin.quotes.USD.price} USD</option>)}
+                    {coins.map((coin, idx) => <option value={idx} key={idx}>{coin.name} ({coin.symbol})</option>)}
                 </select>}
+                <h4>{loading ? "" : `${selected.symbol} PRICE`}</h4>
+                <div>{loading ? "" : `${Math.round(selected.quotes.USD.price * currency).toLocaleString('ko-KR')} KRW`}</div>
+                <div>{loading ? "" : `${selected.quotes.USD.price.toFixed(2)} USD`}</div>
+                <small>{loading ? "" : "투자금을 입력하시면 구입할 수 있는 코인개수를 계산합니다"}</small>
                 <div>
-                    <label>USD</label>
-                    <input type='number' value={amount} onChange={onChange} />
+                    {loading ? "" : <label>USD</label>}
+                    {loading ? "" : <input type='number' value={amount} onChange={onChange} />} 
                 </div>
                 <div className="canBuy">{loading ? "" : `= ${selected.symbol} ${amount / selected.quotes.USD.price}개`}</div>
             </CoinWrapper>
