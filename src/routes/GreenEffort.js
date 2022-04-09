@@ -86,6 +86,14 @@ const GeWrapper = styled.div`
        .react-calendar--selectRange .react-calendar__tile--hover {
         background-color: #f8f8fa;
        }
+       .dot {
+        margin: 0 auto;
+        height: 8px;
+        width: 8px;
+        background-color: #20c997;
+        border-radius: 50%;
+        display: flex;
+      }
 `
 
 const GreenEffort = () => {
@@ -93,14 +101,9 @@ const GreenEffort = () => {
     const [num, setNum] = useState(0);
     const [commits, setCommit] = useState([]);
 
-    const plus = () => {
-        setNum(num + 1);
-    }
-    const minus = () => {
-        setNum(num - 1);
-    }
+    const onNumChange = (e) => setNum(e.target.value)
     const commit = () => {
-        setCommit((current) => [...current, `${moment(value).format("YYYY년 MM월 DD일")}`])
+        setCommit((current) => [...current, moment(value).format("YYYY-MM-DD")])
     }
     const onClickDay = (value) => {
         onChange(value)
@@ -112,26 +115,23 @@ const GreenEffort = () => {
             <GlobalStyle />
             <GeWrapper>
                 <h1>Green your Effort!</h1>
-                <Calendar value={value} onClickDay={onClickDay} tileContent={({ date, view }) => {
-                    let html = [];
+                <Calendar value={value} onClickDay={onClickDay}tileContent={({ date }) => {
                     if (commits.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
-                    html.push(<div className="dot"></div>);
-                    }
                     return (
                     <>
-                        <div>{html}</div>
+                        <div className="dot"></div>
                     </>
-                    );}} 
+                    );
+                    }
+                }}
                 />
                 <div>
                     {moment(value).format("YYYY년 MM월 DD일")} 
                 </div>
                 <div>
-                    <button onClick={minus}>-</button>
-                    <input type='number' defaultValue={num} />
-                    <button onClick={plus}>+</button>
+                    <input onChange={onNumChange} type='number' value={num} placeholder="투자 시간을 작성하세요" />
+                    <button onClick={commit} value={value}>commit!</button>
                 </div>
-                <button onClick={commit} value={value}>commit!</button>
             </GeWrapper>
         </>
     )
