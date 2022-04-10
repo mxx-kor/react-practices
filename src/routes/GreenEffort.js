@@ -86,24 +86,62 @@ const GeWrapper = styled.div`
        .react-calendar--selectRange .react-calendar__tile--hover {
         background-color: #f8f8fa;
        }
-       .dot {
+       .color1 {
         margin: 0 auto;
-        height: 8px;
-        width: 8px;
+        height: 10px;
+        width: 10px;
         background-color: #20c997;
         border-radius: 50%;
         display: flex;
-      }
+       }
+       .color2 {
+        margin: 0 auto;
+        height: 10px;
+        width: 10px;
+        background-color: #00A172;
+        border-radius: 50%;
+        display: flex;
+       }
+       .color3 {
+        margin: 0 auto;
+        height: 10px;
+        width: 10px;
+        background-color: #007A4E;
+        border-radius: 50%;
+        display: flex;
+       }
+       .color4 {
+        margin: 0 auto;
+        height: 10px;
+        width: 10px;
+        background-color: #00552E;
+        border-radius: 50%;
+        display: flex;
+        }
+        .color5 {
+        margin: 0 auto;
+        height: 10px;
+        width: 10px;
+        background-color: #00320F;
+        border-radius: 50%;
+        display: flex;
+        }
 `
+
 
 const GreenEffort = () => {
     const [value, onChange] = useState(new Date());
-    const [num, setNum] = useState(0);
+    const [num, setNum] = useState(1);
     const [commits, setCommit] = useState([]);
 
-    const onNumChange = (e) => setNum(e.target.value)
-    const commit = () => {
-        setCommit((current) => [...current, moment(value).format("YYYY-MM-DD")])
+    const onNumChange = (e) => {
+        setNum(e.target.value);
+    }
+    const commit = (e) => {
+        setCommit((current) => [...current, {
+            day: moment(value).format("YYYY-MM-DD"),
+            hour: e.target.value
+        }])
     }
     const onClickDay = (value) => {
         onChange(value)
@@ -115,13 +153,13 @@ const GreenEffort = () => {
             <GlobalStyle />
             <GeWrapper>
                 <h1>Green your Effort!</h1>
-                <Calendar value={value} onClickDay={onClickDay}tileContent={({ date }) => {
-                    if (commits.find((x) => x === moment(date).format("YYYY-MM-DD"))) {
+                <Calendar value={value} onClickDay={onClickDay} tileContent={({ date }) => {
+                    if (commits.find((x) => x.day === moment(date).format("YYYY-MM-DD"))) {
                     return (
                     <>
-                        <div className="dot"></div>
+                        <div className={"color" + commits.find(x => x.day === moment(date).format("YYYY-MM-DD")).hour}></div>
                     </>
-                    );
+                    );  
                     }
                 }}
                 />
@@ -130,7 +168,7 @@ const GreenEffort = () => {
                 </div>
                 <div>
                     <input onChange={onNumChange} type='number' value={num} placeholder="투자 시간을 작성하세요" />
-                    <button onClick={commit} value={value}>commit!</button>
+                    <button onClick={commit} value={num}>commit!</button>
                 </div>
             </GeWrapper>
         </>
