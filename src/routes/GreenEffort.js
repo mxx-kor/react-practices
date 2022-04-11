@@ -146,6 +146,14 @@ const GreenEffort = () => {
     const onClickDay = (value) => {
         onChange(value)
     }
+    const commitClick = (e) => {
+        setNum(e.target.value)
+    }
+    const inputStyle = {
+        width: '40px',
+        textAlign: 'center',
+        paddingLeft: '15px',
+    };
 
     return (
         <>
@@ -167,7 +175,16 @@ const GreenEffort = () => {
                     {moment(value).format("YYYY년 MM월 DD일")} 
                 </div>
                 <div>
-                    <input onChange={onNumChange} type='number' value={num} placeholder="투자 시간을 작성하세요" />
+                    <button onClick={commitClick} value={1}>1</button>
+                    <button onClick={commitClick} value={2}>2</button>
+                    <button onClick={commitClick} value={3}>3</button>
+                    <button onClick={commitClick} value={4}>4</button>
+                    <button onClick={commitClick} value={5}>5</button>
+                </div>
+                <div>
+                    <input onChange={onNumChange} type='number' value={num} disabled style={inputStyle} />
+                </div>
+                <div>
                     <button onClick={commit} value={num}>commit!</button>
                 </div>
             </GeWrapper>
