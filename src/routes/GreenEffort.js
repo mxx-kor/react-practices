@@ -126,6 +126,50 @@ const GeWrapper = styled.div`
         border-radius: 50%;
         display: flex;
         }
+    .now {
+        color: #868e96;
+    }
+    .numBtn {
+        margin: 10px 3px;
+        padding: 5px 15px;
+        background-color: #e9ecef;
+
+        font-family: "Noto Sans KR", sans-serif;
+        font-size: 1rem;
+        font-weight: 400;
+        text-align: center;
+        color: #20c997;
+        border: 2px solid #20c997;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .numBtn:active,
+    .numBtn:hover,
+    .numBtn:focus {
+        background-color: #20c997;
+        color: white;
+        outline: 0;
+    }
+    .numBtn:disabled {
+    opacity: 0.5;
+    }
+    .commitBtn {
+        padding: 5px 20px;
+        background-color: #20c997;
+        color: white;
+        font-family: "Noto Sans KR", sans-serif;
+        font-size: 1rem;
+        font-weight: 600;
+        text-align: center;
+        border: 1px solid black;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+    .commitBtn:active,
+    .commitBtn:hover {
+        background-color: #00552E;
+        color: white;
+    }
 `
 
 
@@ -134,9 +178,6 @@ const GreenEffort = () => {
     const [num, setNum] = useState(1);
     const [commits, setCommit] = useState([]);
 
-    const onNumChange = (e) => {
-        setNum(e.target.value);
-    }
     const commit = (e) => {
         setCommit((current) => [...current, {
             day: moment(value).format("YYYY-MM-DD"),
@@ -149,18 +190,13 @@ const GreenEffort = () => {
     const commitClick = (e) => {
         setNum(e.target.value)
     }
-    const inputStyle = {
-        width: '40px',
-        textAlign: 'center',
-        paddingLeft: '15px',
-    };
 
     return (
         <>
             <NavBar />
             <GlobalStyle />
             <GeWrapper>
-                <h1>Green your Effort!</h1>
+                <h1>✅Green your Effort!</h1>
                 <Calendar value={value} onClickDay={onClickDay} tileContent={({ date }) => {
                     if (commits.find((x) => x.day === moment(date).format("YYYY-MM-DD"))) {
                     return (
@@ -171,21 +207,21 @@ const GreenEffort = () => {
                     }
                 }}
                 />
-                <div>
+                <div className='now'>
                     {moment(value).format("YYYY년 MM월 DD일")} 
                 </div>
-                <div>
-                    <button onClick={commitClick} value={1}>1</button>
-                    <button onClick={commitClick} value={2}>2</button>
-                    <button onClick={commitClick} value={3}>3</button>
-                    <button onClick={commitClick} value={4}>4</button>
-                    <button onClick={commitClick} value={5}>5</button>
+                <div className='now'>
+                    투자한 시간을 선택하세요. 
                 </div>
+                <newBtnWrapper>
+                    <button className='numBtn' onClick={commitClick} value={1}>1</button>
+                    <button className='numBtn' onClick={commitClick} value={2}>2</button>
+                    <button className='numBtn' onClick={commitClick} value={3}>3</button>
+                    <button className='numBtn' onClick={commitClick} value={4}>4</button>
+                    <button className='numBtn' onClick={commitClick} value={5}>5</button>
+                </newBtnWrapper>
                 <div>
-                    <input onChange={onNumChange} type='number' value={num} disabled style={inputStyle} />
-                </div>
-                <div>
-                    <button onClick={commit} value={num}>commit!</button>
+                    <button className='commitBtn' onClick={commit} value={num}>commit!</button>
                 </div>
             </GeWrapper>
         </>
