@@ -141,7 +141,9 @@ const GeWrapper = styled.div`
         color: #20c997;
         border: 2px solid #20c997;
         border-radius: 10px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         cursor: pointer;
+        transition: 0.3s;
     }
     .numBtn:active,
     .numBtn:hover,
@@ -163,7 +165,9 @@ const GeWrapper = styled.div`
         text-align: center;
         border: 1px solid black;
         border-radius: 10px;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         cursor: pointer;
+        transition: 0.3s;
     }
     .commitBtn:active,
     .commitBtn:hover {
