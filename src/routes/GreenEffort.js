@@ -12,19 +12,43 @@ body {
 }
 `;
 
+const GeTemplate = styled.div`
+    width: 512px;
+    height: 580px;
+
+    position: relative;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+
+    margin: 0 auto;
+
+    margin-top: 30px;
+    margin-bottom: 32px;
+    display: flex;
+    flex-direction: column;
+`;
+
 const GeWrapper = styled.div`
-    margin: 30px auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    h1 {
+        text-align: center;
+        font-size: 30px;
+        color: #343a40;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #e9ecef;
+        width: 100%
+      }
     .react-calendar { 
         width: 400px;
         max-width: 100%;
         background-color: #fff;
         color: #222;
+        border: 1px solid #20c997;
         border-radius: 8px;
-        box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
         font-family: Arial, Helvetica, sans-serif;
         line-height: 1.125em;
         margin-bottom: 30px;
@@ -130,11 +154,10 @@ const GeWrapper = styled.div`
         color: #868e96;
     }
     .numBtn {
-        margin: 10px 3px;
+        margin: 15px 3px;
         padding: 5px 15px;
-        background-color: #e9ecef;
+        background-color: #fff;
 
-        font-family: "Noto Sans KR", sans-serif;
         font-size: 1rem;
         font-weight: 400;
         text-align: center;
@@ -156,14 +179,14 @@ const GeWrapper = styled.div`
     opacity: 0.5;
     }
     .commitBtn {
-        padding: 5px 20px;
+        padding: 8px 20px;
+        margin-top: 5px;
         background-color: #20c997;
         color: white;
-        font-family: "Noto Sans KR", sans-serif;
         font-size: 1rem;
         font-weight: 600;
         text-align: center;
-        border: 1px solid black;
+        border: none;
         border-radius: 10px;
         box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
         cursor: pointer;
@@ -199,35 +222,37 @@ const GreenEffort = () => {
         <>
             <NavBar />
             <GlobalStyle />
-            <GeWrapper>
-                <h1>✅Green your Effort!</h1>
-                <Calendar value={value} onClickDay={onClickDay} tileContent={({ date }) => {
-                    if (commits.find((x) => x.day === moment(date).format("YYYY-MM-DD"))) {
-                    return (
-                    <>
-                        <div className={"color" + commits.find(x => x.day === moment(date).format("YYYY-MM-DD")).hour}></div>
-                    </>
-                    );  
-                    }
-                }}
-                />
-                <div className='now'>
-                    {moment(value).format("YYYY년 MM월 DD일")} 
-                </div>
-                <div className='now'>
-                    투자한 시간을 선택하세요. 
-                </div>
-                <newBtnWrapper>
-                    <button className='numBtn' onClick={commitClick} value={1}>1</button>
-                    <button className='numBtn' onClick={commitClick} value={2}>2</button>
-                    <button className='numBtn' onClick={commitClick} value={3}>3</button>
-                    <button className='numBtn' onClick={commitClick} value={4}>4</button>
-                    <button className='numBtn' onClick={commitClick} value={5}>5</button>
-                </newBtnWrapper>
-                <div>
-                    <button className='commitBtn' onClick={commit} value={num}>commit!</button>
-                </div>
-            </GeWrapper>
+            <GeTemplate>
+                <GeWrapper>
+                    <h1>✅Green your Effort</h1>
+                    <Calendar value={value} onClickDay={onClickDay} tileContent={({ date }) => {
+                        if (commits.find((x) => x.day === moment(date).format("YYYY-MM-DD"))) {
+                        return (
+                        <>
+                            <div className={"color" + commits.find(x => x.day === moment(date).format("YYYY-MM-DD")).hour}></div>
+                        </>
+                        );  
+                        }
+                    }}
+                    />
+                    <div className='now'>
+                        {moment(value).format("YYYY년 MM월 DD일")} 
+                    </div>
+                    <div className='now'>
+                        투자한 시간을 선택하세요. 
+                    </div>
+                    <div>
+                        <button className='numBtn' onClick={commitClick} value={1}>1</button>
+                        <button className='numBtn' onClick={commitClick} value={2}>2</button>
+                        <button className='numBtn' onClick={commitClick} value={3}>3</button>
+                        <button className='numBtn' onClick={commitClick} value={4}>4</button>
+                        <button className='numBtn' onClick={commitClick} value={5}>5</button>
+                    </div>
+                    <div>
+                        <button className='commitBtn' onClick={commit} value={num}>commit!</button>
+                    </div>
+                </GeWrapper>
+            </GeTemplate>
         </>
     )
 }
