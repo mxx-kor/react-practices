@@ -81,6 +81,7 @@ const GeWrapper = styled.div`
        }
        .react-calendar__tile--now {
         background: #2E81FB;
+        opacity: 0.8;
         border-radius: 6px;
         font-weight: bold;
         color: #fff;
@@ -203,19 +204,24 @@ const GeWrapper = styled.div`
 const GreenEffort = () => {
     const [value, onChange] = useState(new Date());
     const [num, setNum] = useState(1);
-    const [commits, setCommit] = useState([]);
+    const [commits, setCommit] = useState(localStorage.getItem('green') === null ? [] : JSON.parse(localStorage.getItem('green')));
 
     const commit = (e) => {
         setCommit((current) => [...current, {
             day: moment(value).format("YYYY-MM-DD"),
             hour: e.target.value
         }])
+        setNum(1);
+        localStorage.setItem('green', JSON.stringify([...commits, {
+            day: moment(value).format("YYYY-MM-DD"),
+            hour: e.target.value
+        }]))
     }
     const onClickDay = (value) => {
         onChange(value)
     }
-    const commitClick = (e) => {
-        setNum(e.target.value)
+    const commitHour = (e) => {
+        setNum(e.target.value);
     }
 
     return (
@@ -242,11 +248,11 @@ const GreenEffort = () => {
                         투자한 시간을 선택하세요. 
                     </div>
                     <div>
-                        <button className='numBtn' onClick={commitClick} value={1}>1</button>
-                        <button className='numBtn' onClick={commitClick} value={2}>2</button>
-                        <button className='numBtn' onClick={commitClick} value={3}>3</button>
-                        <button className='numBtn' onClick={commitClick} value={4}>4</button>
-                        <button className='numBtn' onClick={commitClick} value={5}>5</button>
+                        <button className='numBtn' onClick={commitHour} value={1}>1</button>
+                        <button className='numBtn' onClick={commitHour} value={2}>2</button>
+                        <button className='numBtn' onClick={commitHour} value={3}>3</button>
+                        <button className='numBtn' onClick={commitHour} value={4}>4</button>
+                        <button className='numBtn' onClick={commitHour} value={5}>5</button>
                     </div>
                     <div>
                         <button className='commitBtn' onClick={commit} value={num}>commit!</button>
