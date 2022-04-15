@@ -1,22 +1,19 @@
 import React, { useReducer, createContext, useContext, useRef } from "react";
 
-const initialTodos = [
-    {
-        id: 1,
-        text: "새로운 할 일을 추가해보세요!",
-        done: true
-    }
-];
+const initialTodos = localStorage.getItem('data') === null ? [] : JSON.parse(localStorage.getItem('data'));
 
 function TodoReducer(state, action) {
     switch (action.type) {
         case 'CREATE':
+            localStorage.setItem('data', JSON.stringify(state.concat(action.todo)));
             return state.concat(action.todo);
         case 'TOGGLE':
+            localStorage.setItem('data', JSON.stringify(state.map(todo => todo.id === action.id ? { ...todo, done: !todo.done } : todo)));
             return state.map(todo =>
                 todo.id === action.id ? { ...todo, done: !todo.done } : todo
             );
         case 'REMOVE':
+            localStorage.setItem('data', JSON.stringify(state.filter(todo => todo.id !== action.id)));
             return state.filter(todo => todo.id !== action.id)
         default:
             throw new Error(`Unhandled action type: ${action.type}`);
@@ -29,7 +26,7 @@ const TodoNextIdContext = createContext();
 
 export function TodoProvider({ children }) {
     const [state, dispatch] = useReducer(TodoReducer, initialTodos);
-    const nextId = useRef(5);
+    const nextId = useRef(initialTodos.length + 1);
 
 
     return (
