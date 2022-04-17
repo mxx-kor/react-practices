@@ -13,14 +13,23 @@ function createWindow () {
   
   const template = [
     {
-      label: "MJ's app",
-      submenu: [] 
+      label: "백승렬의 머리",
+      submenu: [
+        {
+          label: '하스 스톤',
+          click: () => {
+            win.webContents.executeJavaScript(`
+              window.open("about:blank").location.href = 'https://ww.namu.la/s/03601ed854dc1a83803305f8d399377953f05075346bcf4b3a3b9acb560d8cb03dc5ab26dde7e5128b7d74ddd1f59aeaaa99257197eeea49be8a26040e35f2c99110db9b0be4dab2b5b37d638d877abdab2d353a8cc2310a37a4aa7c7c4e5335 '
+            `)
+          }
+        }
+      ] 
     },
     {
       label: "⚠",
       submenu: [
         {
-          label: "백승렬의 머리",
+          label: "Reload",
           click: () => {
             win.webContents.executeJavaScript(`
               window.location.reload();
@@ -60,6 +69,6 @@ function createWindow () {
 app.whenReady().then(() => { 
   createWindow() 
 }) 
-// app.on('window-all-closed', function () { 
-//   if (process.platform !== 'darwin') app.quit() 
-// })
+app.on('window-all-closed', function () { 
+  if (process.platform !== 'darwin') app.quit() 
+})
