@@ -9,7 +9,7 @@ function createWindow () {
     //   contextIsolation : false
     // } 
   }) 
-  win.loadURL("http://localhost:3000");
+  win.loadURL("https://mxx-kor.github.io/react-practices/");
   
   const template = [
     {
@@ -26,7 +26,7 @@ function createWindow () {
       ] 
     },
     {
-      label: "⚠",
+      label: "Reset ⚠",
       submenu: [
         {
           label: "Reload",
@@ -35,12 +35,7 @@ function createWindow () {
               window.location.reload();
             `);
           }
-        }
-      ]
-    },
-    {
-      label: "Reset",
-      submenu: [
+        },
         {
           label: "Reset ToDo List",
           click: () => {

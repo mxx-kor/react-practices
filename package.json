@@ -1,7 +1,7 @@
 {
   "name": "react-practices",
   "version": "0.1.0",
-  "private": true,
+  "private": "true",
   "main": "src/main.js",
   "productName": "MJ's DayApp",
   "dependencies": {
@@ -9,6 +9,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "concurrently": "^7.1.0",
+    "electron-squirrel-startup": "^1.0.0",
     "gh-pages": "^3.2.3",
     "moment": "^2.29.2",
     "react": "^17.0.2",
@@ -22,12 +23,14 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "concurrently \"react-scripts start\" \"npm test\" ",
+    "start": "electron-forge start",
     "build": "react-scripts build",
-    "test": "wait-on http://localhost:3000 && electron .",
+    "test": "wait-on https://mxx-kor.github.io/react-practices/ && electron .",
     "eject": "react-scripts eject",
     "deploy": "gh-pages -d build",
-    "predeploy": "npm run build"
+    "predeploy": "npm run build",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "eslintConfig": {
     "extends": [
@@ -48,7 +51,39 @@
     ]
   },
   "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.63",
+    "@electron-forge/maker-deb": "^6.0.0-beta.63",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.63",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.63",
+    "@electron-forge/maker-zip": "^6.0.0-beta.63",
     "electron": "^18.0.4"
   },
-  "homepage": "https://mxx-kor.github.io/react-practices"
+  "homepage": "https://mxx-kor.github.io/react-practices",
+  "config": {
+    "forge": {
+      "packagerConfig": {},
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "react_practices"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
+  }
 }
