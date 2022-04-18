@@ -25,7 +25,9 @@
     "start": "concurrently \"react-scripts start\" \"npm test\" ",
     "build": "react-scripts build",
     "test": "wait-on http://localhost:3000 && electron .",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "gh-pages -d build",
+    "predeploy": "npm run build"
   },
   "eslintConfig": {
     "extends": [
@@ -47,5 +49,6 @@
   },
   "devDependencies": {
     "electron": "^18.0.4"
-  }
+  },
+  "homepage": "https://mxx-kor.github.io/react-practices"
 }
