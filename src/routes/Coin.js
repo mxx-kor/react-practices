@@ -91,27 +91,29 @@ function Coin() {
 
     const onChange = (e) => setAmount(e.target.value)
 
-    const getCoinData = () => {
-        fetch("https://api.coinpaprika.com/v1/tickers")
-        .then((response) => response.json())
-        .then((json) => {
-            setCoins(json.slice(0, 100));
-            setSelected(json[0]);
-            setLoading(false);
-        })
+    const getCoinData = async () => {
+        const response = await fetch("https://api.coinpaprika.com/v1/tickers")
+        const coinData = await response.json();
+        return coinData
     }
 
-    const get_Currency_Data = () =>{
-        fetch("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD")
-        .then((respose) => respose.json())
-        .then((json) => {
-            setCurrency(json[0].cashBuyingPrice);
-        });
+    const get_Currency_Data = async () =>{
+        const responce = await fetch("https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD")
+        const KRW = await responce.json();
+        return KRW
     }
 
     useEffect(() => {
-        getCoinData();
-        get_Currency_Data();
+        getCoinData()
+        .then((coinData) => {
+            setCoins(coinData.slice(0, 100));
+            setSelected(coinData[0]);
+            setLoading(false);
+        });
+        get_Currency_Data()
+        .then((KRW) => {
+            setCurrency(KRW[0].cashBuyingPrice);
+        });
     }, [])
     return (
         <>
