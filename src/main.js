@@ -32,7 +32,7 @@ function createWindow () {
           label: "Reload",
           click: () => {
             win.webContents.executeJavaScript(`
-              window.location.reload();
+              window.location.href = "https://mxx-kor.github.io/react-practices/";
             `);
           }
         },
@@ -41,7 +41,7 @@ function createWindow () {
           click: () => {
             win.webContents.executeJavaScript(`
               localStorage.removeItem('data')
-              window.location.reload();
+              window.location.href = "https://mxx-kor.github.io/react-practices/";
             `);
           }
         },
@@ -50,7 +50,7 @@ function createWindow () {
           click: () => {
             win.webContents.executeJavaScript(`
               localStorage.removeItem('green')
-              window.location.reload();
+              window.location.href = "https://mxx-kor.github.io/react-practices/";
             `);
           }
         }
