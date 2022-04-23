@@ -10,6 +10,7 @@
     "@testing-library/user-event": "^13.5.0",
     "concurrently": "^7.1.0",
     "electron-squirrel-startup": "^1.0.0",
+    "framer-motion": "^6.3.1",
     "gh-pages": "^3.2.3",
     "moment": "^2.29.2",
     "react": "^17.0.2",
@@ -26,8 +27,9 @@
   "scripts": {
     "start": "electron-forge start",
     "build": "react-scripts build",
-    "test": "wait-on https://mxx-kor.github.io/react-practices/ && electron .",
+    "test": "react-scripts test",
     "eject": "react-scripts eject",
+    "electron": "wait-on https://mxx-kor.github.io/react-practices/ && electron .",
     "deploy": "gh-pages -d build",
     "predeploy": "npm run build",
     "package": "electron-forge package",
