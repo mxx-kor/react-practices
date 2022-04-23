@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
-import NavBar from "../components/NavBar";
+import { motion } from "framer-motion";
 
 const GlobalStyle = createGlobalStyle`
 body {
-  background: #e9ecef;
+    background: #e9ecef;
 }
 `;
 
@@ -116,8 +116,11 @@ function Coin() {
         });
     }, [])
     return (
-        <>
-            <NavBar />
+        <motion.div 
+            initial={{opacity: 0, scale: 0.5}}
+            animate={{opacity: 1, scale: 0.95}}
+            exit={{display: 'none'}}
+        >
             <CoinTemplate>
                 <CoinWrapper>
                     <GlobalStyle />
@@ -137,7 +140,7 @@ function Coin() {
                     <div className="canBuy">{loading ? "" : `= ${selected.symbol} ${amount / selected.quotes.USD.price}개`}</div>
                 </CoinWrapper>
             </CoinTemplate>
-        </>
+        </motion.div>
     )
 }
 

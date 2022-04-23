@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import { createGlobalStyle } from 'styled-components';
-import NavBar from "../components/NavBar";
 import moment from 'moment';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 const GlobalStyle = createGlobalStyle`
 body {
@@ -225,8 +225,11 @@ const GreenEffort = () => {
     }
 
     return (
-        <>
-            <NavBar />
+        <motion.div
+            initial={{opacity: 0, scale: 0.5}}
+            animate={{opacity: 1, scale: 0.95}}
+            exit={{display: 'none'}}
+        >
             <GlobalStyle />
             <GeTemplate>
                 <GeWrapper>
@@ -259,7 +262,7 @@ const GreenEffort = () => {
                     </div>
                 </GeWrapper>
             </GeTemplate>
-        </>
+        </motion.div>
     )
 }
 
