@@ -38,6 +38,9 @@ const NavBar = () => {
         <Link to="/ge">
             <NavBtn>Green-Effort</NavBtn>
         </Link>
+        <Link to="/calculator">
+            <NavBtn>Calculator</NavBtn>
+        </Link>
     </NavWrapper>
     )
 }

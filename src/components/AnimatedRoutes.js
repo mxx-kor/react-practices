@@ -3,6 +3,7 @@ import { Switch, Route, useLocation } from "react-router-dom";
 import Coin from "../routes/Coin";
 import Home from "../routes/Home";
 import GreenEffort from "../routes/GreenEffort";
+import Calculator from "../routes/Calculator";
 import { AnimatePresence } from "framer-motion"
 
 function AnimatedRoutes() {
@@ -11,6 +12,9 @@ function AnimatedRoutes() {
     return (
         <AnimatePresence>
             <Switch location={location} key={location.pathname}>
+                <Route path="/calculator">
+                    <Calculator />
+                </Route>
                 <Route path="/coin">
                     <Coin />
                 </Route>
