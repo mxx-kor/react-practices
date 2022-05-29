@@ -4,6 +4,9 @@ import styled from 'styled-components';
 import { motion } from "framer-motion";
 
 const GlobalStyle = createGlobalStyle`
+*, *::before, *::after {
+    box-sizing: border-box;
+}
 body {
     background: #e9ecef;
 }
@@ -33,9 +36,43 @@ const CalculatorWrapper = styled.div`
 `
 
 const CalculatorGrid = styled.div`
+    display: grid;
+    margin-top: 2rem;
+    grid-template-columns: repeat(4, 6rem);
+    grid-templlate-rows: minmax(7rem, auto) repeat(5, 6rem);
+
+    .span-two {
+        grid-column: span 2;
+    }
+    button {
+        cursor: pointer;
+        font-size: 2rem;
+        border: 1px solid white;
+    }
+    button:hover, button:focus {
+        background-color: rgba(255, 255, 255, .75);
+    }
 `
 
 const Output = styled.div`
+    grid-column: 1 / -1;
+    background-color: rgba(0, 0, 0, .75);
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: space-around;
+    padding: .75rem;
+    word-wrap: break-word;
+    word-break: break-all;
+
+    .previous-operand {
+        color: rgba(225, 225, 225, .75);
+        font-size: 1.5rem;
+    }
+    .current-operand {
+        color: white;
+        font-size: 2.5rem;
+    }
 `
 
 const Calculator = () => {
@@ -50,8 +87,8 @@ const Calculator = () => {
                     <GlobalStyle />
                     <CalculatorGrid>
                         <Output>
-                            <div className="previous-operand">number</div>
-                            <div className="current-operand">number</div>
+                            <div className="previous-operand"></div>
+                            <div className="current-operand"></div>
                         </Output>
                         <button className="span-two">AC</button>
                         <button>DEL</button>
