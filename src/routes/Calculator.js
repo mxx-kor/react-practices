@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useReducer} from "react";
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import { motion } from "framer-motion";
@@ -75,7 +75,29 @@ const Output = styled.div`
     }
 `
 
+const ACTIONS = {
+    ADD_DIGIT: 'add-digit',
+    CHOOSE_OPERATION: 'choose-operation',
+    CLEAR: 'clear',
+    DELETE_DIGIT: 'delete-digit',
+    EVALUATE: 'evaluate'
+}
+
+const reducer = (state, { type, payload }) => {
+    switch(type) {
+        case ACTIONS.ADD_DIGIT:
+            return {
+                ...state,
+                currentOperand: `${currentOperand || ""}${payload.digit}`
+            }
+    }
+}
+
 const Calculator = () => {
+    const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(reducer, {})
+
+    dispatch({ type: ACTIONS.ADD_DIGIT, payload: { digit: 1 }})
+
     return (
         <motion.div 
             initial={{opacity: 0, scale: 0.5}}
@@ -87,8 +109,8 @@ const Calculator = () => {
                     <GlobalStyle />
                     <CalculatorGrid>
                         <Output>
-                            <div className="previous-operand"></div>
-                            <div className="current-operand"></div>
+                            <div className="previous-operand">{previousOperand} {operation}</div>
+                            <div className="current-operand">{currentOperand}</div>
                         </Output>
                         <button className="span-two">AC</button>
                         <button>DEL</button>
