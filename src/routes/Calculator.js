@@ -1,4 +1,6 @@
 import React, {useReducer} from "react";
+import CalBtn from "../components/CalBtn";
+import OperationBtn from "../components/OperationBtn";
 import { createGlobalStyle } from 'styled-components';
 import styled from 'styled-components';
 import { motion } from "framer-motion";
@@ -75,7 +77,7 @@ const Output = styled.div`
     }
 `
 
-const ACTIONS = {
+export const ACTIONS = {
     ADD_DIGIT: 'add-digit',
     CHOOSE_OPERATION: 'choose-operation',
     CLEAR: 'clear',
@@ -88,7 +90,7 @@ const reducer = (state, { type, payload }) => {
         case ACTIONS.ADD_DIGIT:
             return {
                 ...state,
-                currentOperand: `${currentOperand || ""}${payload.digit}`
+                currentOperand: `${state.currentOperand || ""}${payload.digit}`
             }
     }
 }
@@ -96,7 +98,7 @@ const reducer = (state, { type, payload }) => {
 const Calculator = () => {
     const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(reducer, {})
 
-    dispatch({ type: ACTIONS.ADD_DIGIT, payload: { digit: 1 }})
+    // dispatch({ type: ACTIONS.ADD_DIGIT, payload: { digit: 1 }})
 
     return (
         <motion.div 
@@ -114,21 +116,21 @@ const Calculator = () => {
                         </Output>
                         <button className="span-two">AC</button>
                         <button>DEL</button>
-                        <button>÷</button>
-                        <button>1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button>*</button>
-                        <button>4</button> 
-                        <button>5</button> 
-                        <button>6</button> 
-                        <button>+</button>
-                        <button>7</button> 
-                        <button>8</button> 
-                        <button>9</button> 
-                        <button>-</button>
-                        <button>.</button> 
-                        <button>0</button> 
+                        <OperationBtn operation="÷" dispatch={dispatch} />
+                        <CalBtn digit="1" dispatch={dispatch} />
+                        <CalBtn digit="2" dispatch={dispatch} />
+                        <CalBtn digit="3" dispatch={dispatch} />
+                        <OperationBtn operation="*" dispatch={dispatch} />
+                        <CalBtn digit="4" dispatch={dispatch} />
+                        <CalBtn digit="5" dispatch={dispatch} />
+                        <CalBtn digit="6" dispatch={dispatch} />
+                        <OperationBtn operation="+" dispatch={dispatch} />
+                        <CalBtn digit="7" dispatch={dispatch} />
+                        <CalBtn digit="8" dispatch={dispatch} />
+                        <CalBtn digit="9" dispatch={dispatch} />
+                        <OperationBtn operation="-" dispatch={dispatch} />
+                        <CalBtn digit="." dispatch={dispatch} />
+                        <CalBtn digit="0" dispatch={dispatch} />
                         <button className="span-two">=</button>     
                     </CalculatorGrid>
                 </CalculatorWrapper>
