@@ -16,7 +16,7 @@ body {
 
 const CalculatorTemplate = styled.div`
     width: 512px;
-    height: 400px;
+    height: 630px;
 
     position: relative;
     background: white;
@@ -30,18 +30,11 @@ const CalculatorTemplate = styled.div`
     display: flex;
     flex-direction: column;
 `
-const CalculatorWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-`
 
 const CalculatorGrid = styled.div`
     display: grid;
-    margin-top: 2rem;
-    grid-template-columns: repeat(4, 6rem);
-    grid-templlate-rows: minmax(7rem, auto) repeat(5, 6rem);
+    grid-template-columns: repeat(4, 8rem);
+    grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
 
     .span-two {
         grid-column: span 2;
@@ -53,6 +46,14 @@ const CalculatorGrid = styled.div`
     }
     button:hover, button:focus {
         background-color: rgba(255, 255, 255, .75);
+    }
+    .accent-color {
+        background-color: #20c997;
+        color: white;
+        font-weight: bold;
+    }
+    .accent-color:hover, .accent-color:focus {
+        background-color: #63e6be;
     }
 `
 
@@ -66,7 +67,9 @@ const Output = styled.div`
     padding: .75rem;
     word-wrap: break-word;
     word-break: break-all;
-    min-height: 110px;
+    min-height: 150px;
+    border-top-left-radius: 16px;
+    border-top-right-radius: 16px;
 
     .previous-operand {
         color: rgba(225, 225, 225, .75);
@@ -195,6 +198,16 @@ const evaluate = ({ currentOperand, previousOperand, operation }) => {
     return computation.toString()
 }
 
+const INTEGER_FORMATTER = new Intl.NumberFormat("en-us", {
+    maximumFractionDigits: 0,
+})
+const formatOperand = (operand) => {
+    if (operand == null) return
+    const [integer, decimal] = operand.split(".")
+    if (decimal == null) return INTEGER_FORMATTER.format(integer)
+    return `${INTEGER_FORMATTER.format(integer)}.${decimal}`
+}
+
 const Calculator = () => {
     const [{ currentOperand, previousOperand, operation }, dispatch] = useReducer(reducer, {})
 
@@ -207,15 +220,14 @@ const Calculator = () => {
             exit={{display: 'none'}}
         >
             <CalculatorTemplate>
-                <CalculatorWrapper>
                     <GlobalStyle />
                     <CalculatorGrid>
                         <Output>
-                            <div className="previous-operand">{previousOperand} {operation}</div>
-                            <div className="current-operand">{currentOperand}</div>
+                            <div className="previous-operand">{formatOperand(previousOperand)} {operation}</div>
+                            <div className="current-operand">{formatOperand(currentOperand)}</div>
                         </Output>
-                        <button className="span-two" onClick={() => dispatch({ type: ACTIONS.CLEAR })}>AC</button>
-                        <button onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}>DEL</button>
+                        <button className="span-two accent-color" onClick={() => dispatch({ type: ACTIONS.CLEAR })}>AC</button>
+                        <button className="accent-color" onClick={() => dispatch({ type: ACTIONS.DELETE_DIGIT })}>DEL</button>
                         <OperationBtn operation="÷" dispatch={dispatch} />
                         <CalBtn digit="1" dispatch={dispatch} />
                         <CalBtn digit="2" dispatch={dispatch} />
@@ -228,12 +240,11 @@ const Calculator = () => {
                         <CalBtn digit="7" dispatch={dispatch} />
                         <CalBtn digit="8" dispatch={dispatch} />
                         <CalBtn digit="9" dispatch={dispatch} />
-                        <OperationBtn operation="-" dispatch={dispatch} />
+                        <OperationBtn className="accent-color" operation="-" dispatch={dispatch} />
                         <CalBtn digit="." dispatch={dispatch} />
                         <CalBtn digit="0" dispatch={dispatch} />
-                        <button className="span-two" onClick={() => dispatch({ type: ACTIONS.EVALUATE })}>=</button>     
+                        <button className="span-two accent-color" onClick={() => dispatch({ type: ACTIONS.EVALUATE })}>=</button>     
                     </CalculatorGrid>
-                </CalculatorWrapper>
             </CalculatorTemplate>
         </motion.div>
     )
