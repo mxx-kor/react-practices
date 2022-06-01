@@ -16,7 +16,7 @@ body {
 
 const CalculatorTemplate = styled.div`
     width: 512px;
-    height: 630px;
+    height: 510px;
 
     position: relative;
     background: white;
@@ -34,7 +34,7 @@ const CalculatorTemplate = styled.div`
 const CalculatorGrid = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 8rem);
-    grid-template-rows: minmax(7rem, auto) repeat(5, 6rem);
+    grid-template-rows: minmax(7rem, auto) repeat(5, 4.5rem);
 
     .span-two {
         grid-column: span 2;
