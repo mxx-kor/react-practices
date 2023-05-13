@@ -41,13 +41,15 @@ const Timer = () => {
       exit={{ display: 'none' }}>
       <TimerTemplateBlock>
         <TimesUp>
-          <motion.div
-            initial={{ x: '0%' }}
-            animate={{ x: '5%' }}
-            exit={{ x: '0%' }}
-            transition={{ duration: 0.2, repeat: Infinity }}>
-            {timeLeft <= 0 && '⏰'}
-          </motion.div>
+          {timeLeft <= 0 && (
+            <motion.div
+              initial={{ x: '0%' }}
+              animate={{ x: '5%' }}
+              exit={{ x: '0%' }}
+              transition={{ duration: 0.2, repeat: Infinity }}>
+              ⏰
+            </motion.div>
+          )}
         </TimesUp>
         <LeftTime>
           {`${minutes} : ${second}`}
