@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled, { css } from 'styled-components';
 import { MdAdd } from 'react-icons/md';
 import { useTodoDispatch } from '../TodoContext';
-import shortid from 'shortid'
+import shortid from 'shortid';
 
 const CircleButton = styled.button`
   background: #38d9a9;
@@ -34,7 +34,7 @@ const CircleButton = styled.button`
   justify-content: center;
 
   transition: 0.125s all ease-in;
-  ${props =>
+  ${(props) =>
     props.open &&
     css`
       background: #ff6b6b;
@@ -78,41 +78,46 @@ const Input = styled.input`
 `;
 
 function TodoCreate() {
-    const [open, setOpen] = useState(false);
-    const [value, setValue] = useState('');
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState('');
 
-    const dispatch = useTodoDispatch();
-  
-    const onToggle = () => setOpen(!open);
-    const onChange = e => setValue(e.target.value);
-    const onSubmit = e => {
-      e.preventDefault();
-      dispatch({
-        type: 'CREATE',
-        todo: {
-          id: shortid.generate(),
-          text: value,
-          done: false
-        }
-      });
-      setValue('');
-      setOpen(false);
-    };
+  const dispatch = useTodoDispatch();
 
-    return (
-        <>
-        {open && (
-            <InsertFormPositioner>
-                <InsertForm onSubmit={onSubmit}>
-                    <Input autoFocus placeholder='할 일을 입력 후, Enter 를 누르세요' onChange={onChange} value={value} />
-                </InsertForm>
-            </InsertFormPositioner>
-        )}
-        <CircleButton onClick={onToggle} open={open}>
-            <MdAdd />
-        </CircleButton>
-        </>
-    )
+  const onToggle = () => setOpen(!open);
+  const onChange = (e) => setValue(e.target.value);
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch({
+      type: 'CREATE',
+      todo: {
+        id: shortid.generate(),
+        text: value,
+        done: false,
+      },
+    });
+    setValue('');
+    setOpen(false);
+  };
+
+  return (
+    <>
+      {open && (
+        <InsertFormPositioner>
+          <InsertForm onSubmit={onSubmit}>
+            <Input
+              autoFocus
+              placeholder="할 일을 입력 후, Enter 를 누르세요"
+              onChange={onChange}
+              value={value}
+            />
+          </InsertForm>
+        </InsertFormPositioner>
+      )}
+      <CircleButton onClick={onToggle} open={open}>
+        <MdAdd />
+      </CircleButton>
+    </>
+  );
 }
 
 export default React.memo(TodoCreate);
