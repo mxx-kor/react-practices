@@ -40,6 +40,7 @@ const Timer = () => {
       animate={{ opacity: 1, scale: 0.95 }}
       exit={{ display: 'none' }}>
       <TimerTemplateBlock>
+        <Title>Timer</Title>
         <TimesUp>
           {timeLeft <= 0 && (
             <motion.div
@@ -100,8 +101,15 @@ const TimerTemplateBlock = styled.div`
   flex-direction: column;
 `;
 
+const Title = styled.h1`
+  text-align: center;
+  font-size: 36px;
+  color: #343a40;
+  width: 100%;
+`;
+
 const MinuteBtnWrapper = styled.div`
-  margin-top: 1rem;
+  margin-top: 4rem;
   display: flex;
   gap: 8px;
   justify-content: center;
@@ -162,12 +170,12 @@ const SwitchBtn = styled.button`
 `;
 
 const LeftTime = styled.span`
-  margin-top: 10rem;
+  margin-top: 4rem;
   text-align: center;
   font-size: 60px;
   font-weight: bold;
   color: #343a40;
-  padding: 10px;
+  padding: 2rem;
   border: 1px solid #e9ecef;
   width: 100%;
 `;
