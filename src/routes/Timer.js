@@ -139,6 +139,7 @@ const MinuteBtn = styled.button`
     opacity: 0.5;
   }
 `;
+
 const SwitchBtnWrapper = styled.div`
   margin-top: 1rem;
   margin-bottom: 1rem;
@@ -148,6 +149,7 @@ const SwitchBtnWrapper = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
 const SwitchBtn = styled.button`
   padding: 8px 20px;
   margin-top: 5px;
