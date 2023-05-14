@@ -43,6 +43,9 @@ const NavBar = () => {
       <Link to="/timer">
         <NavBtn>Timer</NavBtn>
       </Link>
+      <Link to="/ro">
+        <NavBtn>Random-Order</NavBtn>
+      </Link>
     </NavWrapper>
   );
 };

@@ -7,6 +7,7 @@ import Calculator from '../routes/Calculator';
 import { AnimatePresence } from 'framer-motion';
 import { createGlobalStyle } from 'styled-components';
 import Timer from '../routes/Timer';
+import RandomOrder from '../routes/RandomOrder';
 
 const GlobalStyle = createGlobalStyle`
     *, *::before, *::after {
@@ -24,6 +25,9 @@ function AnimatedRoutes() {
     <AnimatePresence>
       <GlobalStyle />
       <Switch location={location} key={location.pathname}>
+        <Route path="/ro">
+          <RandomOrder />
+        </Route>
         <Route path="/timer">
           <Timer />
         </Route>
