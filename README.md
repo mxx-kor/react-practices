@@ -6,7 +6,16 @@
 
 ### 개발 목표
 
-> 벨로퍼트님과 노마트코더님의 강의를 통해 리액트를 이용해 개인이 사용하기 좋은 데스크톱앱 구축
+> 개인이 활용하기 좋은 소규모 애플리케이션 구현을 통해 리액트 학습
+
+<center>
+    <img src="https://github.com/mxx-kor/react-practices/assets/82329983/e4921f19-d08c-4ce3-bd07-52c97f69ca10" width="300" height="300">
+    <img src="https://github.com/mxx-kor/react-practices/assets/82329983/68e7d111-f393-4887-9c7d-b959e3a9c3fe" width="300" height="300">
+    <img src="https://github.com/mxx-kor/react-practices/assets/82329983/66f564e8-190c-4836-a3d3-2f36d30dd3f9" width="300" height="300">
+    <img src="https://github.com/mxx-kor/react-practices/assets/82329983/74d52ae6-40c1-4cf8-9fd7-0a471bbb8a4c" width="300" height="300">
+    <img src="https://github.com/mxx-kor/react-practices/assets/82329983/08783fcd-e63f-485b-9e33-aeb5df778765" width="300" height="300">
+    <img src="https://github.com/mxx-kor/react-practices/assets/82329983/b946b421-fd61-499c-bde4-95e52cd52848" width="300" height="300">
+</center>
 
 ### 사용 기술
 
@@ -20,8 +29,6 @@
 ### 일렉트론(electron)
 
 > gh-page로 배포한 뒤 gh-page URL을 활용하여 데스크톱앱을 실행하면 윈도우창을 통해 사용 가능하도록 함.
-
-![image](https://user-images.githubusercontent.com/82329983/163916101-6d3fa5aa-9e87-432f-bb6d-bd7bd10d9db4.png)
 
 ### 주요 기능
 
@@ -48,3 +55,17 @@
     - 간단한 계산기를 구현
     - Reducer를 활용해 다양한 Actions를 dispatch하여 기능
     - 버튼의 기능에 따라 컴포넌트로 정리, 다양한 조건 설정하여 오류 최소화
+    
+> Timer
+
+    - 면접 스터디에 활용하기 위해 구현
+    - 남은 시간을 state로 추가, reset을 통해 다양한 시간 설정 가능
+    - setInterval, clearInterval 활용
+    - 최소한의 상태값을 활용하기 위해 노력함
+
+> Random-Order
+
+    - 면접 스터디에 활용하기 위해 구현
+    - 랜덤한 순서로 input 값들을 재구성
+    - 동적으로 input 개수 조절
+    - form의 element 접근을 활용하여 input value를 배열로 작성하지 않음 
