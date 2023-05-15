@@ -57,7 +57,7 @@ const RandomOrder = () => {
 
 const RandomOrderTemplateBlock = styled.div`
   width: 512px;
-  height: 570px;
+  height: 100%;
 
   position: relative;
   background: white;
